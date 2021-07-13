@@ -27,7 +27,7 @@ ifeq ("$(wildcard /usr/bin/docker)","")
         sudo chmod +x /usr/local/bin/docker-compose
 endif
 
-volume_create:
+chown_dir:
 	@sudo mkdir -p /data/dss && sudo chown -hR ${USER} /data/dss
 
 network:
@@ -36,8 +36,11 @@ network:
 requirements: up
 	docker exec -it ${COMPOSE_PROJECT_NAME}_dss /home/dataiku/dss/bin/pip install -r requirements.txt
 
-up: check volume_create network
-	docker-compose up -d
+build: check chown_dir network
+	docker-compose build 
+
+up: check 
+	docker-compose up -d --no-build
 
 down:
 	docker-compose down

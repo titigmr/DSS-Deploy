@@ -4,7 +4,7 @@ Ce repértoire permet de créer une instance DSS avec une base de données Postg
 
 
 ```
-make install-prerequisites && make up
+make install-prerequisites && make build && make up
 ```
 
 
